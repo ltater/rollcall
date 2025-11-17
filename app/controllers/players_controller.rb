@@ -49,6 +49,8 @@ class PlayersController < ApplicationController
   def send_notification
     player = Player.find(params[:id])
 
+    Rails.logger.info "Attempting to send SMS to #{player.phone}."
+
     twilio = TwilioService.new
     result = twilio.send_sms(
       to: player.phone,
@@ -56,11 +58,18 @@ class PlayersController < ApplicationController
     )
 
     if result
+      Rails.logger.info "SMS sent successfully: #{result.sid}"
       flash[:notice] = "Message sent successfully!"
     else
+      Rails.logger.error "Failed to send SMS"
       flash[:alert] = "Failed to send message."
     end
 
+    redirect_to players_path
+
+  rescue StandardError => e
+    Rails.logger.error "Exception sending SMS: #{e.message}"
+    flash[:alert] = "Error: #{e.message}"
     redirect_to players_path
   end
 end
