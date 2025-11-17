@@ -45,4 +45,22 @@ class PlayersController < ApplicationController
   def player_params
     params.expect(player: [ :name, :phone, :email ])
   end
+
+  def send_notification
+    player = Player.find(params[:id])
+
+    twilio = TwilioService.new
+    result = twilio.send_sms(
+      to: player.phone,
+      body: "Hello #{player.name}, this is a Roll Call message."
+    )
+
+    if result
+      flash[:notice] = "Message sent successfully!"
+    else
+      flash[:alert] = "Failed to send message."
+    end
+
+    redirect_to players_path
+  end
 end

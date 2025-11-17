@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  resources :players
   root "players#index"
+
+  # send notifications
+  resources :players do
+    member do
+      post :send_notification
+    end
+  end
 
   # get "players/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
