@@ -6,7 +6,6 @@ class PlayersController < ApplicationController
   end
 
   def show
-    @player = Player.find(params[:id])
   end
 
   def new
@@ -44,6 +43,6 @@ class PlayersController < ApplicationController
   end
 
   def player_params
-    params.expect(player: [ :name ])
+    params.expect(player: [ :name, :phone, :email ])
   end
 end

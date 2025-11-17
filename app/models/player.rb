@@ -1,3 +1,3 @@
 class Player < ApplicationRecord
-    validates :name, presence: true
+    validates :name, :phone, presence: true
 end
