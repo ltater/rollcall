@@ -38,7 +38,7 @@ class PlayersController < ApplicationController
     redirect_to players_path
   end
 
-  private 
+  private
     def set_player
       @player = Player.find(params[:id])
   end
