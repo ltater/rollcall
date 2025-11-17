@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :players do
     member do
       post :send_notification
-    end    
+    end
   end
 
   # get "players/index"
