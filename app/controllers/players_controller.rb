@@ -6,6 +6,7 @@ class PlayersController < ApplicationController
   end
 
   def show
+    @player = Player.find(params[:id])
   end
 
   def new
@@ -21,13 +22,25 @@ class PlayersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @player.update(player_params)
+      redirect_to @player
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @player.destroy
     redirect_to players_path
   end
 
-  private def_set player
-    @player = Player.find(params[:id])
+  private 
+    def set_player
+      @player = Player.find(params[:id])
   end
 
   def player_params
