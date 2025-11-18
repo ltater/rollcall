@@ -37,15 +37,6 @@ class PlayersController < ApplicationController
     redirect_to players_path
   end
 
-  private
-    def set_player
-      @player = Player.find(params[:id])
-  end
-
-  def player_params
-    params.expect(player: [ :name, :phone, :email ])
-  end
-
   def send_notification
     player = Player.find(params[:id])
 
@@ -66,11 +57,18 @@ class PlayersController < ApplicationController
     end
 
     redirect_to players_path
-
   rescue StandardError => e
     Rails.logger.error "Exception sending SMS: #{e.message}"
     flash[:alert] = "Error: #{e.message}"
     redirect_to players_path
   end
+
+  private
+    def set_player
+      @player = Player.find(params[:id])
+  end
+
+  def player_params
+    params.expect(player: [ :name, :phone, :email ])
+  end
 end
-# Force rebuild
