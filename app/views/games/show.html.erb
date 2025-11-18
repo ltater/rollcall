@@ -1,0 +1,32 @@
+<h1>Game Details</h1>
+
+<p>
+	<strong>Date:</strong>
+	<%= @game.date.strftime("%B %d, %Y") %>
+</p>
+
+<p>
+	<strong>Time:</strong>
+	<%= @game.time.strftime("%I :%M %p") %>
+</p>
+
+<p>
+	<strong>Home Team:</strong>
+	<%= link_to @game.home_team.name, @game.home_team %>
+</p>
+
+<p>
+	<strong>Away Team:</strong>
+	<%= link_to @game.away_team.name, @game.away_team %>
+</p>
+
+<p>
+	<strong>Location:</strong>
+	<%= @game.location %>
+</p>
+
+<hr>
+
+<%= link_to "Edit", edit_game_path(@game) %> |
+<%= link_to "Back to Games", games_path %> |
+<%= button_to "Delete", @game, method: :delete, data: { cofirm: "Are you sure?" } %>

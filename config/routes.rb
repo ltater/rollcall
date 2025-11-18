@@ -1,20 +1,19 @@
 Rails.application.routes.draw do
-  root "players#index"
 
-  # send notifications
   resources :players do
     member do
       post :send_notification
     end
   end
 
-  # add a player to a team
   resources :teams do
     member do
       post :add_player
       post :remove_player
     end
   end
+
+  resources :games
 
   # get "players/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
