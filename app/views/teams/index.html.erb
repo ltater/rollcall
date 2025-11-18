@@ -1,0 +1,13 @@
+<%= debug @teams %>
+
+<h1>Teams</h1>
+
+<%= link_to "New Team", new_team_path %>
+
+<div id="teams">
+	<% @teams.each do |team| %>
+		<div>
+			<%= link_to team.name, team %>
+		</div>
+	<% end %>
+</div>
