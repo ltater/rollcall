@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "players#index"
 
+  resources :teams
+
   # send notifications
   resources :players do
     member do
