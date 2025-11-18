@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: %i[ show edit update destroy ]
+  before_action :set_team, only: [:show, :edit, :update, :destroy, :add_player, :remove_player]
 
   def index
     @teams = Team.all
@@ -35,6 +35,18 @@ class TeamsController < ApplicationController
   def destroy
     @team.destroy
     redirect_to teams_path
+  end
+
+  def add_player
+    player = Player.find(params[:player_id])
+    player.update(team_id: @team.id)
+    redirect_to @team, notice: "#{player.name} added to team!"
+  end
+
+  def remove_player
+    player = Player.find(params[:player_id])
+    player.update(team_id: nil)
+    redirect_to @team, notice: "#{player.name} removed from team!"
   end
 
   private

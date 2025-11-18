@@ -12,3 +12,22 @@
 	</div>
 	<% end %>
 </div>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Team</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @players.each do |player| %>
+			<tr>
+				<td><%= player.name %></td>
+				<td><%= player.team&.name || "No team assigned" %></td>
+				<td><%= link_to "Show", player %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

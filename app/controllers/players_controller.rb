@@ -64,11 +64,11 @@ class PlayersController < ApplicationController
   end
 
   private
-    def set_player
-      @player = Player.find(params[:id])
+  def set_player
+    @player = Player.find(params[:id])
   end
 
   def player_params
-    params.expect(player: [ :name, :phone, :email ])
+    params.require(:player).permit(:name, :email, :phone, :team_id)
   end
 end

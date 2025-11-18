@@ -2,6 +2,11 @@
 <%= @player.phone %>
 <%= @player.email %>
 
+<p>
+	<strong>Team:</strong>
+	<%= @player.team&.name || "No Team Assigned" %>
+</p>
+
 <%= link_to "Back", players_path %>
 <%= link_to	"Edit", edit_player_path(@player) %>
 <%= button_to "Delete", @player, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
