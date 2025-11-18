@@ -1,5 +1,39 @@
 <h1><%= @team.name %></h1>
 
+<h2>Current Players</h2>
+<% if @team.players.any? %>
+	<ul>
+		<% @team.players.each do |player| %>
+			<li>
+				<%= player.name %>
+				<%= button_to "Remove", remove_player_team_path(@team, player_id: player.id),
+					method: :post,
+					data: { confirm: "Remove #{player.name} from team?" },
+					style: "display: inline; margin-left: 10px;" %>
+			</li>
+		<% end %>
+	</ul>
+<% else %>
+	<p>No players on this team yet.</p>
+<% end %>
+
+<h2>Add Players to Team</h2>
+<% available_players = Player.where(team_id: nil) %>
+<% if available_players.any? %>
+	<ul>
+		<% available_players.each do |player| %>
+			<li>
+				<%= player.name %>
+				<%= button_to "Add to Team", add_player_team_path(@team, player_id: player.id),
+					method: :post,
+					style: "display: inline; margin-left: 10px;" %>
+			</li>
+		<% end %>
+	</ul>
+<% else %>
+	<p>No available players to add. All players are assigned to teams.</p>
+<% end %>
+
 <%= link_to "Back", teams_path %>
 <%= link_to "Edit", edit_team_path(@team) %>
 <%= button_to "Delete", @team, method: :delete, data: { turbo_confirm: "Are you sure?" } %>

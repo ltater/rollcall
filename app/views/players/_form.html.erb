@@ -9,6 +9,11 @@
 	</div>
 
 	<div>
+		<%=form.label :team_id, "Team" %>
+		<%=form.collection_select :team_id, Team.all, :id, :name,
+			{ prompt: "Select a team" },
+			{ class: "form-control" } %>
+	<div>
 		<%= form.submit %>
 	</div>
 <% end %>
