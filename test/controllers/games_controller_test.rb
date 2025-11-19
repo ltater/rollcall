@@ -28,6 +28,8 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
           away_team_id: @team2.id
         }
       }
+    end 
+    
     assert_redirected_to game_url(Game.last) 
   end
 
@@ -95,4 +97,4 @@ end
 #    get games_destroy_url
 #    assert_response :success
 #  end
-#end
+# end
