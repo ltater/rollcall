@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_game, only: [ :show, :edit, :update, :destroy, :initialize_rsvps ]
 
   def index
     @games = Game.all.order(date: :asc, time: :asc)
@@ -40,6 +40,19 @@ class GamesController < ApplicationController
   def destroy
     @game.destroy
     redirect_to games_path, notice: "Game was successfully deleted."
+  end
+
+  def initialize_rsvps
+    @game.create_rsvps_for_players
+    redirect_to @game, notice: "Roll call initialized for all players!"
+  end
+
+  def set_game
+    @game = Game.find(params[:id])
+  end
+
+  def game_params
+    params.require(:game).permit(:date, :time, :location, :home_team_id, :away_team_id)
   end
 
   private

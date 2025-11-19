@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_18_223605) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_19_193352) do
   create_table "games", force: :cascade do |t|
     t.integer "away_team_id"
     t.datetime "created_at", null: false
@@ -33,6 +33,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_18_223605) do
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
+  create_table "rsvps", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "game_id", null: false
+    t.integer "player_id", null: false
+    t.string "status", default: "pending"
+    t.datetime "updated_at", null: false
+    t.index ["game_id", "player_id"], name: "index_rsvps_on_game_id_and_player_id", unique: true
+    t.index ["game_id"], name: "index_rsvps_on_game_id"
+    t.index ["player_id"], name: "index_rsvps_on_player_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -42,4 +53,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_18_223605) do
   add_foreign_key "games", "teams", column: "away_team_id"
   add_foreign_key "games", "teams", column: "home_team_id"
   add_foreign_key "players", "teams"
+  add_foreign_key "rsvps", "games"
+  add_foreign_key "rsvps", "players"
 end

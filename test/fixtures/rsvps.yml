@@ -2,13 +2,11 @@
 
 # Test data created manually in setup blocks
 #one:
-#  name: sampleteam1
+#  game: one
+#  player: one
+#  status: MyString
 
 #two:
-#  name: sampleteam2
-
-#one:
-#  name: MyString
-#
-#two:
-#  name: MyString
+#  game: two
+#  player: two
+#  status: MyString
