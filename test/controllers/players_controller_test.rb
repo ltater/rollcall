@@ -12,8 +12,8 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get players_index_url
-    # get players_path
+    # get players_index_url
+    get players_path
     assert_response :success
   end
 end
