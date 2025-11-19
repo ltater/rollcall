@@ -10,6 +10,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     @game = Game.create!(
       date: Date.tomorrow,
       time: Time.now,
+      location: "Test Stadium",
       home_team: @team1,
       away_team: @team2
       )
@@ -59,7 +60,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should update game" do
     patch game_url(@game), params: {
       game: {
-        location: "Test Location" # Changed from Updated Location (or put 1)
+        location: "Updated Location" # Changed from Updated Location (or put 1)
       }
     }
     assert_redirected_to game_url(@game)
