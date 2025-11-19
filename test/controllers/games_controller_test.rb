@@ -1,6 +1,8 @@
 require "test_helper"
 
 class GamesControllerTest < ActionDispatch::IntegrationTest
+  self.use_transactional_tests = true
+
   setup do
     # @team1 = teams(:one) # removed :one and added :sampleteam1 / fixture teams, games
     # @team2 = teams(:two) # removed :two and added :sampleteam2 / fixture teams, games
