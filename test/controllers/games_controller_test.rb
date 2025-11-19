@@ -2,9 +2,18 @@ require "test_helper"
 
 class GamesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @team1 = teams(:one) # removed :one and added :sampleteam1 / fixture teams, games
-    @team2 = teams(:two) # removed :two and added :sampleteam2 / fixture teams, games
-    @game = games(:one) # removed :one and added :game1 / fixture games
+    # @team1 = teams(:one) # removed :one and added :sampleteam1 / fixture teams, games
+    # @team2 = teams(:two) # removed :two and added :sampleteam2 / fixture teams, games
+    # @game = games(:one) # removed :one and added :game1 / fixture games
+    @team1 = Team.create!(name: "Team Alpha")
+    @team2 = Team.create!(name: "Team Beta")
+    @game = Game.create!(
+      date: Date.tomorrow,
+      time: Time.now,
+      home_team: @team1,
+      away_team: @team2
+      )
+  end
 
     # Debug: make sure games exists
     assert_not_nil @game, "Game fixture should not be nil"
@@ -51,7 +60,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should update game" do
     patch game_url(@game), params: {
       game: {
-        location: "1" # Changed from Updated Location
+        location: "Updated Location" # Changed from Updated Location (or put 1)
       }
     }
     assert_redirected_to game_url(@game)

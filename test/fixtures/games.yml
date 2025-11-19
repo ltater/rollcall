@@ -1,11 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  date: 2026-01-01
-  time: 2026-01-01 12:00
-  location: 1
-  home_team: one
-  away_team: two
+# Test data created manually in setup blocks
+#one:
+#  date: 2026-01-01
+#  time: 2026-01-01 12:00
+#  location: 1
+#  home_team: one
+#  away_team: two
 
 #two:
 #  date: 2026-01-01
