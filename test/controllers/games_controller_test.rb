@@ -48,7 +48,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
       game: {
         date: @game.date,
         time: @time.date,
-        location: "Updated Location"
+        location: "Updated Location",
         home_team_id: @game.home_team_id,
         away_team_id: @game.away_team_id
       }
