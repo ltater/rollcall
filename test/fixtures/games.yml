@@ -7,12 +7,12 @@ one:
   home_team: one
   away_team: two
 
-two:
-  date: 2026-01-01
-  time: 2026-01-01 12:00
-  location: 1
-  home_team: two
-  away_team: one
+#two:
+#  date: 2026-01-01
+#  time: 2026-01-01 12:00
+#  location: 1
+#  home_team: two
+#  away_team: one
 
 
 #one:
