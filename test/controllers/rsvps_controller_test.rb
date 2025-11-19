@@ -20,15 +20,15 @@ class RsvpsControllerTest < ActionDispatch::IntegrationTest
     @rsvp = Rsvp.create!(
       game: @game,
       player: @player,
-      status: 'pending'
+      status: "pending"
     )
   end
 
   test "should update rsvp status" do
-    patch rsvp_url(@rsvp), params: { status: 'yes' }
+    patch rsvp_url(@rsvp), params: { status: "yes" }
     assert_redirected_to game_url(@game)
 
     @rsvp.reload
-    assert_equal 'yes', @rsvp.status
+    assert_equal "yes", @rsvp.status
   end
 end

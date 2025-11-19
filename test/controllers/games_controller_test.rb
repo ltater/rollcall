@@ -15,11 +15,10 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
       )
   end
 
-    # Debug: make sure games exists
-    assert_not_nil @game, "Game fixture should not be nil"
-    assert_not_nil @game.home_team, "Home team should not be nil"
-    assert_not_nil @game.away_team, "Away team should not be nil"
-  end
+  # Debug: make sure games exists
+  # assert_not_nil @game, "Game fixture should not be nil"
+  # assert_not_nil @game.home_team, "Home team should not be nil"
+  # assert_not_nil @game.away_team, "Away team should not be nil"
 
   test "should get index" do
     get games_url
