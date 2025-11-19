@@ -34,6 +34,28 @@
 	<p>No available players to add. All players are assigned to teams.</p>
 <% end %>
 
+<h2>Upcoming Games</h2>
+<% upcoming_games = @team.games.where("date >= ?", Date.today).order(:date, :time) %>
+<% if upcoming_games.any? %>
+	<ul>
+		<% upcoming_games.each do |game| %>
+			<li>
+				<%= game.date.strftime("%B %d, %Y") %>at <%= game.time.strftime("%I:%M %p") %> -
+				<% if game.home_team_id == @team.id %>
+					vs. <%= game.away_team.name %> (Home)
+				<% else %>
+					@ <%= game.home_team.name %> (Away)
+				<% end %>
+				- <%= game.location %>
+				<%= link_to "View Game", game %>
+			</li>
+		<% end %>
+	</ul>
+<% else %>
+	<p>No upcoming game scheduled.</p>
+<% end %>
+
+
 <%= link_to "Back", teams_path %>
 <%= link_to "Edit", edit_team_path(@team) %>
 <%= button_to "Delete", @team, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
