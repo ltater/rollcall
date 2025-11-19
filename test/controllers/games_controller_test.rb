@@ -7,6 +7,12 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     @game = games(:game1) # removed :one and added :game1 / fixture games
   end
 
+    # Debug: make sure games exists
+    assert_not_nil @game, "Game fixture should not be nil"
+    assert_not_nil @game.home_team, "Home team should not be nil"
+    assert_not_nil @game.away_team, "Away team should not be nil"
+  end
+
   test "should get index" do
     get games_url
     assert_response :success
@@ -48,7 +54,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
       game: {
         date: @game.date,
         time: @time.date,
-        location: "Updated Location",
+        location: "1", # Changed from Updated Location
         home_team_id: @game.home_team_id,
         away_team_id: @game.away_team_id
       }
