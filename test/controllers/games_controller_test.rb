@@ -7,7 +7,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     # @team1 = teams(:one) # removed :one and added :sampleteam1 / fixture teams, games
     # @team2 = teams(:two) # removed :two and added :sampleteam2 / fixture teams, games
     # @game = games(:one) # removed :one and added :game1 / fixture games
-    
+
     # Ensure clean slate
     Game.destroy_all
     Team.destroy_all
