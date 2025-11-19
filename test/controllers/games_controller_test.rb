@@ -51,7 +51,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should update game" do
     patch game_url(@game), params: {
       game: {
-        location: "1", # Changed from Updated Location
+        location: "1" # Changed from Updated Location
       }
     }
     assert_redirected_to game_url(@game)
