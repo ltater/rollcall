@@ -42,6 +42,19 @@ class GamesController < ApplicationController
     redirect_to games_path, notice: "Game was successfully deleted."
   end
 
+  def initialize_rsvps
+    @game.create_rsvps_for_players
+    redirect_to @game, notice: "Roll call initialized for all players!"
+  end
+
+  def set_game
+    @game = Game.find(params[:id])
+  end
+
+  def game_params
+    params.require(:game).permit(:date, :time, :location, :home_team_id, :away_team_id)
+  end
+
   private
   def set_game
     @game = Game.find(params[:id])
