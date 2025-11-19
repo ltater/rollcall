@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_game, only: [ :show, :edit, :update, :destroy, :initialize_rsvps ]
 
   def index
     @games = Game.all.order(date: :asc, time: :asc)

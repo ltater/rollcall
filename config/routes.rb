@@ -14,7 +14,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :games
+  resources :games do
+    member do
+      post :initialize_rsvps
+    end
+  end
+
+  resources: :rsvps, only: [:update]
 
   # get "players/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

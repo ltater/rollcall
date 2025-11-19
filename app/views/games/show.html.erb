@@ -27,6 +27,59 @@
 	<%= @game.location %>
 </p>
 
+<h2>Roll Call</h2>
+
+<% if @game.rsvps.empty? %>
+	<%= button_to "Initialize Roll Call", initialize_rsvps_game_path(@game), method: :post, class: "btn" %>
+	<p><em>Click to create roll call for all players on both teams.</em></p>
+<% else %>
+	
+	<h3>Attending (<%= @game.rsvps.yes.count %>)</h3>
+	<% if @game.rsvps.yes.any? %>
+		<ul>
+			<% @game.rsvps.yes.each do |rsvp| %>
+				<li>
+					<%= rsvp.player.name %>
+					<%= button_to "Mark Pending", rsvp_path(rsvp, status: 'pending'), method: :patch, stlyle: "display: inline; margin-left: 10px;" %>
+					<%= button_to "Mark No", rsvp_path(rsvp, status: 'no'), method: :patch, style: "display: inline;" %>
+				</li>
+			<% end %>
+		</ul>
+	<% else %>
+		<p>No confirmations yet.</p>
+	<% end %>
+
+	<h3>Not Attending <%= @game.rsvps.no.count %></h3>
+	<% if @game.rsvps.no.any? %>
+		<ul>
+			<% @game.rsvps.no.each do |rsvp| %>
+				<li>
+					<%= rsvp.player.name %>
+					<%= button_to "Mark Pending", rsvp_path(rsvp, status: 'pending'), method: :patch, style: "display: inline; margin-left: 10px;" %>
+					<%= button_to "Mark Yes", rsvp_path(rsvp, status: 'yes'), method: patch, style: "display: inline;" %>
+				</li>
+			<% end %>
+		</ul>
+	<% else %>
+		<p>No declines yet.</p>
+	<% end %>
+
+	<h3> Pending (<%= @game.rsvps.pending.count %>)</h3>
+	<% if @game.rsvps.pending.any? %>
+		<ul>
+			<% @game.rsvps.pending.each do |rsvp| %>
+				<li>
+					<%= rsvp.player.name %>
+					<%= button_to "Mark Yes", rsvp_path(rsvp, status: 'yes'), method: :patch, style: "dispay: inline; margin-left: 10px;" %>
+					<%= button_to "Mark No", rsvp_path(rsvp, status: 'no'), method: :patch, style: "display: inline;" %>
+				</li>
+			<% end %>
+		</ul>
+	<% else %>
+		<p>Everyone responded!</p>
+	<% end %>
+<% end %>
+
 <hr>
 
 <%= link_to "Edit", edit_game_path(@game) %> |
