@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-sampleteam1:
+game1:
   date: 2026-01-01
   time: 2026-01-01 12:00
   location: 1
   home_team_id: sampleteam1
   away_team_id: sampleteam2
 
-sampleteam2:
+game2:
   date: 2026-01-01
   time: 2026-01-01 12:00
   location: 1

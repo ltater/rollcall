@@ -4,7 +4,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @team1 = teams(:sampleteam1) # removed :one and added :sampleteam1 / fixture teams, games
     @team2 = teams(:sampleteam2) # removed :two and added :sampleteam2 / fixture teams, games
-    @game = games(:one)
+    @game = games(:game1) # removed :one and added :game1 / fixture games
   end
 
   test "should get index" do
