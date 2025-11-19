@@ -20,7 +20,7 @@ class GamesController < ApplicationController
       redirect_to @game, notice: "Game was successfully created."
     else
       @teams = Team.all
-      render :new, status: :unprocessable_entity
+      render :new, status: 422 # change from :unprocessable_entity
     end
   end
 
@@ -33,7 +33,7 @@ class GamesController < ApplicationController
       redirect_to @game, notice: "Game was successfully updated."
     else
       @teams = Team.all
-      render :edit, status: unprocessable_entity
+      render :edit, status: 422 # change from :unprocessable_entity
     end
   end
 

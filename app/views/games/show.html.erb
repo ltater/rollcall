@@ -12,12 +12,14 @@
 
 <p>
 	<strong>Home Team:</strong>
-	<%= link_to @game.home_team.name, @game.home_team %>
+	<%= @game.home_team&.name || "Unknown Team" %>
+	<!-- link_to @game.home_team.name, @game.home_team -->
 </p>
 
 <p>
 	<strong>Away Team:</strong>
-	<%= link_to @game.away_team.name, @game.away_team %>
+	<%= @game.away_team&.name || "Unknown Team" %>
+	<!--link_to @game.away_team.name, @game.away_team -->
 </p>
 
 <p>
