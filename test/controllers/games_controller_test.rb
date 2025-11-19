@@ -1,38 +1,98 @@
 require "test_helper"
 
 class GamesControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get games_index_url
-    assert_response :success
+  setup do
+    @team1 = teams(:one)
+    @team2 = teams(:two)
+    @game = games(:one)
   end
 
-  test "should get show" do
-    get games_show_url
+  test "should get index" do
+    get games_url
     assert_response :success
   end
 
   test "should get new" do
-    get games_new_url
+    get new_game_url
     assert_response :success
   end
 
-  test "should get create" do
-    get games_create_url
+  test "should create game" do
+    assert_difference("Game.count") do
+      post games_url, params: {
+        game: {
+          date: Date.tomorrow,
+          time: Time.now,
+          location: "Test Location",
+          home_team_id: @team1.id,
+          away_team_id: @team2.id
+        }
+      }
+    assert_redirected_to game_url(Game.last) 
+  end
+
+  test "should show game" do
+    get game_url(@game)
     assert_response :success
   end
 
   test "should get edit" do
-    get games_edit_url
+    get edit_game_url(@game)
     assert_response :success
   end
 
-  test "should get update" do
-    get games_update_url
-    assert_response :success
+  test "should update game" do
+    patch game_url(@game), params: {
+      game: {
+        location: "Updated Location"
+      }
+    }
+    assert_redirected_to game_url(@game)
   end
 
-  test "should get destroy" do
-    get games_destroy_url
-    assert_response :success
+  test "should destroy game" do
+    assert_difference("Game.count", -1) do
+      delete game_url(@game)
+    end
+
+    assert_redirected_to games_url
   end
 end
+
+
+
+#  test "should get index" do
+#    get games_index_url
+#    assert_response :success
+#  end
+#
+#  test "should get show" do
+#    get games_show_url
+#    assert_response :success
+#  end
+#
+#  test "should get new" do
+#    get games_new_url
+#    assert_response :success
+#  end
+#
+#  test "should get create" do
+#    get games_create_url
+#    assert_response :success
+#  end
+#
+#  test "should get edit" do
+#    get games_edit_url
+#    assert_response :success
+#  end
+#
+#  test "should get update" do
+#    get games_update_url
+#    assert_response :success
+#  end
+#
+#  test "should get destroy" do
+#    get games_destroy_url
+#    assert_response :success
+#  end
+#end
