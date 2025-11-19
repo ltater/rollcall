@@ -2,8 +2,8 @@ require "test_helper"
 
 class GamesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @team1 = teams(:one)
-    @team2 = teams(:two)
+    @team1 = teams(:sampleteam1)
+    @team2 = teams(:sampleteam2)
     @game = games(:one)
   end
 

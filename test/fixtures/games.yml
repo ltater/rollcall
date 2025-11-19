@@ -1,18 +1,18 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-Sample Team 1:
+sampleteam1:
   date: 2026-01-01
   time: 2026-01-01 12:00
   location: 1
-  home_team_id: Sample Team 1
-  away_team_id: Sample Team 2
+  home_team_id: sampleteam1
+  away_team_id: sampleteam2
 
-Sample Team 2:
+sampleteam2:
   date: 2026-01-01
   time: 2026-01-01 12:00
   location: 1
-  home_team_id: Sample Team 1
-  away_team_id: Sample Team 2
+  home_team_id: sampleteam1
+  away_team_id: sampleteam2
 
 
 #one:
