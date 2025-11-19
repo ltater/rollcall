@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-game1:
+one:
   name: sampleteam1
 
-game2:
+two:
   name: sampleteam2
 
 #one:
