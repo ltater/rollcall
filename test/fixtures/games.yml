@@ -1,15 +1,30 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  date: 2025-11-18
-  time: 2025-11-18 16:36:05
-  location: MyString
-  home_team_id: 1
-  away_team_id: 1
+Sample Team 1:
+  date: 2026-01-01
+  time: 2026-01-01 12:00
+  location: 1
+  home_team_id: Sample Team 1
+  away_team_id: Sample Team 2
 
-two:
-  date: 2025-11-18
-  time: 2025-11-18 16:36:05
-  location: MyString
-  home_team_id: 1
-  away_team_id: 1
+Sample Team 2:
+  date: 2026-01-01
+  time: 2026-01-01 12:00
+  location: 1
+  home_team_id: Sample Team 1
+  away_team_id: Sample Team 2
+
+
+#one:
+#  date: 2025-11-18
+#  time: 2025-11-18 16:36:05
+#  location: MyString
+#  home_team_id: 1
+#  away_team_id: 1
+
+#two:
+#  date: 2025-11-18
+#  time: 2025-11-18 16:36:05
+#  location: MyString
+#  home_team_id: 1
+#  away_team_id: 1
