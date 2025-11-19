@@ -8,6 +8,6 @@ class Rsvp < ApplicationRecord
   validates :player_id, uniqueness: { scope: :game_id }
 
   scope :yes, -> { where(status: 'yes') }
-  scope :no, -> { where (status: 'no') }
+  scope :no, -> { where(status: 'no') }
   scope :pending, -> { where(status: 'pending') } 
 end
