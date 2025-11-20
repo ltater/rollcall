@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [ :show, :edit, :update, :destroy, :initialize_rsvps ]
+  before_action :set_game, only: [ :show, :edit, :update, :destroy, :initialize_rsvps, :send_team_roll_call ]
 
   def index
     @games = Game.all.order(date: :asc, time: :asc)
@@ -47,12 +47,15 @@ class GamesController < ApplicationController
     redirect_to @game, notice: "Roll call initialized for all players!"
   end
 
-  def set_game
-    @game = Game.find(params[:id])
-  end
+  def send_team_roll_call
+    team = Team.find(params[:team_id])
 
-  def game_params
-    params.require(:game).permit(:date, :time, :location, :home_team_id, :away_team_id)
+    # Only create RSVPs for this specific team's players
+    team.players.each do |player|
+      @game.rsvps.find_or_create_by(player: player)
+    end
+
+    redirect_to team_path(team), notice: "Roll call sent to #{team.name} players!"
   end
 
   private

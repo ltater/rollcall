@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :games do
     member do
       post :initialize_rsvps
+      post :send_team_roll_call
     end
   end
 
