@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "players#index"
+  root "pages#home"
 
   resources :players do
     member do
