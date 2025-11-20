@@ -1,0 +1,40 @@
+<div style="max-width: 800px; margin: 0 auto; padding: 40px 20px; text-align: center;">
+  <h1 style="font-size: 3em; margin-bottom: 20px;">Welcome to Roll Call</h1>
+  
+  <p style="font-size: 1.2em; color: #666; margin-bottom: 40px;">
+	Your personal assistant for knowing who’s showing up and lining up subs without the chaos.</p>
+
+  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px;">
+    <%= link_to "View Teams", teams_path, style: "background: #4CAF50; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.1em;" %>
+    
+    <%= link_to "View Games", games_path, style: "background: #2196F3; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.1em;" %>
+    
+    <%= link_to "View Players", players_path, style: "background: #FF9800; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.1em;" %>
+  </div>
+
+  <div style="text-align: left; margin-top: 60px;">
+    <h2 style="margin-bottom: 20px;">Features</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+      <div>
+        <h3>📋 Team Management</h3>
+        <p>Create teams and easily add or remove players from your roster.</p>
+      </div>
+      
+      <div>
+        <h3>🏆 Game Scheduling</h3>
+        <p>Schedule games between teams with date, time, and location tracking.</p>
+      </div>
+      
+      <div>
+        <h3>✅ Roll Call</h3>
+        <p>Track player availability for each game with simple yes/no responses.</p>
+      </div>
+      
+      <div>
+        <h3>📱 SMS Notifications</h3>
+        <p>Send text message reminders to players about upcoming games.</p>
+      </div>
+    </div>
+  </div>
+</div>
