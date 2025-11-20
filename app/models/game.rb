@@ -18,6 +18,12 @@ class Game < ApplicationRecord
     end
   end
 
+  def team_rsvps(team)
+    if home_team_id == away_team_id
+      errors.add(:base, "Home team and away team must be different")
+    end
+  end
+
   private
 
   def teams_must_be_different
