@@ -6,10 +6,10 @@ class Team < ApplicationRecord
 
   def games
     Game.where("home_team_id = ? OR away_team_id = ?", id, id)
-    	.order(date: :asc, time: :asc)
+      .order(date: :asc, time: :asc)
   end
 
   def upcoming_games
-  	games.where("date >= ?", Date.today)
+    games.where("date >= ?", Date.today)
   end
 end
