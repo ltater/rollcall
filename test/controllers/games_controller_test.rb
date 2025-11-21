@@ -3,90 +3,69 @@ require "test_helper"
 class GamesControllerTest < ActionDispatch::IntegrationTest
   self.use_transactional_tests = true
 
-  setup do
-    # @team1 = teams(:one) # removed :one and added :sampleteam1 / fixture teams, games
-    # @team2 = teams(:two) # removed :two and added :sampleteam2 / fixture teams, games
-    # @game = games(:one) # removed :one and added :game1 / fixture games
-
+  def setup
     # Ensure clean slate
     Game.destroy_all
     Team.destroy_all
     Player.destroy_all
     Rsvp.destroy_all
 
-    @team1 = Team.create!(name: "Team Alpha")
-    @team2 = Team.create!(name: "Team Beta")
-    @game = Game.create!(
+    @team = Team.create!(name: "Test Team")
+    @game = @team.games.create!(
       date: Date.tomorrow,
       time: Time.now,
       location: "Test Stadium",
-      home_team: @team1,
-      away_team: @team2
+      opponent: "Rival Team",
+      home_away: 'home'
     )
-
-    # Debug: verify the game was created
-    assert @game.persisted?, "Game should be saved"
-    assert_equal 1, Game.count, "Should have exactly 1 game"
-  end
-
-  # Debug: make sure games exists
-  # assert_not_nil @game, "Game fixture should not be nil"
-  # assert_not_nil @game.home_team, "Home team should not be nil"
-  # assert_not_nil @game.away_team, "Away team should not be nil"
-
-
-
-  test "should get index" do
-    get games_url
-    assert_response :success
   end
 
   test "should get new" do
-    get new_game_url
+    get new_team_game_url(@team)
     assert_response :success
   end
 
   test "should create game" do
     assert_difference("Game.count") do
-      post games_url, params: {
+      post team_games_url(@team), params: {
         game: {
-          date: Date.tomorrow,
+          date: Date.tomorrow + 1,
           time: Time.now,
           location: "Test Location",
-          home_team_id: @team1.id,
-          away_team_id: @team2.id
+          opponent: "Another Team",
+          home_away: 'away'
         }
       }
     end
 
-    assert_redirected_to game_url(Game.last)
+    assert_redirected_to team_url(@team)
   end
 
   test "should show game" do
-    get game_url(@game)
+    get team_game_url(@team, @game)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_game_url(@game)
+    get edit_team_game_url(@team, @game)
     assert_response :success
   end
 
   test "should update game" do
-    patch game_url(@game), params: {
+    patch team_game_url(@team, @game), params: {
       game: {
-        location: "Updated Location" # Changed from Updated Location (or put 1)
+        location: "Updated Location"
       }
     }
-    assert_redirected_to game_url(@game)
+    assert_redirected_to team_url(@team)
   end
 
   test "should destroy game" do
     assert_difference("Game.count", -1) do
-      delete game_url(@game)
+      delete team_game_url(@team, @game)
     end
 
-    assert_redirected_to games_url
+    assert_redirected_to team_url(@team)
   end
 end
 
