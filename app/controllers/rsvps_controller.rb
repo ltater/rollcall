@@ -3,9 +3,9 @@ class RsvpsController < ApplicationController
     @rsvp = Rsvp.find(params[:id])
 
     if @rsvp.update(status: params[:status])
-      redirect_to [@rsvp.game.team, @rsvp.game], notice: "RSVP updated for #{@rsvp.player.name}"
+      redirect_to [ @rsvp.game.team, @rsvp.game ], notice: "RSVP updated for #{@rsvp.player.name}"
     else
-      redirect_to [@rsvp.game.team, @rsvp.game], alert: "Could not update RSVP"
+      redirect_to [ @rsvp.game.team, @rsvp.game ], alert: "Could not update RSVP"
     end
   end
 end

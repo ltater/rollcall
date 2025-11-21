@@ -46,7 +46,7 @@ class GamesController < ApplicationController
 
   def send_roll_call
     @game.create_rsvps_for_team
-    redirect_to [@team, @game], notice: "Roll call sent to all team players!"
+    redirect_to [ @team, @game ], notice: "Roll call sent to all team players!"
   end
 
   private

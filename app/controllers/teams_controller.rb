@@ -42,9 +42,9 @@ class TeamsController < ApplicationController
 
    if player.update(team: @team)
       redirect_to @team, notice: "#{player.name} added to team"
-    else
+   else
       redirect_to @team, alert: "Could not add player to team"
-    end
+   end
   end
 
   def remove_player

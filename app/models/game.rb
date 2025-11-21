@@ -4,7 +4,7 @@ class Game < ApplicationRecord
   has_many :players, through: :rsvps
 
   validates :date, :time, :location, :opponent, :home_away, presence: true
-  validates :home_away, inclusion: { in: ['home', 'away' ] }
+  validates :home_away, inclusion: { in: [ "home", "away" ] }
 
   scope :upcoming, -> { where("date >= ?", Date.today).order(date: :asc, time: :asc) }
   scope :past, -> { where("date < ?", Date.today).order(date: :desc) }
