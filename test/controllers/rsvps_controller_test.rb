@@ -2,20 +2,19 @@ require "test_helper"
 
 class RsvpsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @team1 = Team.create!(name: "Team Alpha")
-    @team2 = Team.create!(name: "Team Beta")
+    @team = Team.create!(name: "Test Team")
     @player = Player.create!(
       name: "Test Player",
       email: "test@example.com",
       phone: "15551234567",
-      team: @team1
+      team: @team
     )
-    @game = Game.create!(
+    @game = @team.games.create!(
       date: Date.tomorrow,
       time: Time.now,
       location: "Test Stadium",
-      home_team: @team1,
-      away_team: @team2
+      opponent: "Rival Team",
+      home_away: "home"
     )
     @rsvp = Rsvp.create!(
       game: @game,
@@ -26,7 +25,7 @@ class RsvpsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update rsvp status" do
     patch rsvp_url(@rsvp), params: { status: "yes" }
-    assert_redirected_to game_url(@game)
+    assert_redirected_to team_game_url(@team, @game)
 
     @rsvp.reload
     assert_equal "yes", @rsvp.status

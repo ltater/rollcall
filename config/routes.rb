@@ -12,12 +12,10 @@ Rails.application.routes.draw do
       post :add_player
       post :remove_player
     end
-  end
-
-  resources :games do
-    member do
-      post :initialize_rsvps
-      post :send_team_roll_call
+    resources :games do
+      member do
+        post :send_roll_call
+      end
     end
   end
 

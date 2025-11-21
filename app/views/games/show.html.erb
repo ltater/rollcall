@@ -1,39 +1,18 @@
-<h1>Game Details</h1>
+<h1><%= @team.name %> Game Details</h1>
 
-<p>
-	<strong>Date:</strong>
-	<%= @game.date.strftime("%B %d, %Y") %>
-</p>
+<p><strong>Date:</strong><%= @game.date.strftime("%B %d, %Y") %></p>
+<p><strong>Time:</strong><%= @game.time.strftime("%I :%M %p") %></p>
+<p><strong>Opponent:</strong><%= @game.opponent %></p>
+<p><strong>Location:</strong><%= @game.location %></p>
+<p><strong>Type:</strong> <%= @game.home_away == 'home' ? '🏠 Home Game' : '✈️ Away Game' %></p>
 
-<p>
-	<strong>Time:</strong>
-	<%= @game.time.strftime("%I :%M %p") %>
-</p>
-
-<p>
-	<strong>Home Team:</strong>
-	<%= @game.home_team&.name || "Unknown Team" %>
-	<!-- link_to @game.home_team.name, @game.home_team -->
-</p>
-
-<p>
-	<strong>Away Team:</strong>
-	<%= @game.away_team&.name || "Unknown Team" %>
-	<!--link_to @game.away_team.name, @game.away_team -->
-</p>
-
-<p>
-	<strong>Location:</strong>
-	<%= @game.location %>
-</p>
+<hr>
 
 <h2>Roll Call</h2>
 
 <% if @game.rsvps.empty? %>
-	<%= button_to "Initialize Roll Call", initialize_rsvps_game_path(@game), method: :post, class: "btn" %>
-	<p><em>Click to create roll call for all players on both teams.</em></p>
+	<%= button_to "Initialize Roll Call", send_roll_call_team_game_path, method: :post, style: "padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px;" %>
 <% else %>
-	
 	<h3>Attending (<%= @game.rsvps.yes.count %>)</h3>
 	<% if @game.rsvps.yes.any? %>
 		<ul>
@@ -82,6 +61,5 @@
 
 <hr>
 
-<%= link_to "Edit", edit_game_path(@game) %> |
-<%= link_to "Back to Games", games_path %> |
-<%= button_to "Delete", @game, method: :delete, data: { cofirm: "Are you sure?" } %>
+<%= link_to "Edit Game", edit_team_game_path(@team, @game) %> |
+<%= link_to "Back to Team", @team %>
