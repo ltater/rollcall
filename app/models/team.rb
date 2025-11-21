@@ -1,15 +1,14 @@
 class Team < ApplicationRecord
-  validates :name, presence: true
   has_many :players, dependent: :destroy
-  has_many :home_games, class_name: "Game", foreign_key: "home_team_id", dependent: :destroy
-  has_many :away_games, class_name: "Game", foreign_key: "away_team_id", dependent: :destroy
+  has_many :games, dependent: :destroy
 
-  def games
-    Game.where("home_team_id = ? OR away_team_id = ?", id, id)
-      .order(date: :asc, time: :asc)
-  end
+  validates :name, presence: true
 
   def upcoming_games
-    games.where("date >= ?", Date.today)
+  	games.upcoming
+  end
+
+  def past_games
+  	games.past
   end
 end

@@ -39,14 +39,21 @@ class TeamsController < ApplicationController
 
   def add_player
     player = Player.find(params[:player_id])
-    player.update(team_id: @team.id)
-    redirect_to @team, notice: "#{player.name} added to team!"
+
+   if player.update(team: @team)
+      redirect_to @team, notice: "#{player.name} added to team"
+    else
+      redirect_to @team, alert: "Could not add player to team"
+    end
   end
 
   def remove_player
     player = Player.find(params[:player_id])
-    player.update(team_id: nil)
-    redirect_to @team, notice: "#{player.name} removed from team!"
+    if player.update(team_id: nil)
+      redirect_to @team, notice: "#{player.name} removed from team!"
+    else
+      redirect_to @team, alert: "Could not remove player from team."
+    end
   end
 
   private

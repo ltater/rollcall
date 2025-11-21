@@ -1,6 +1,6 @@
 <h1><%= @team.name %></h1>
 
-<h2>Current Players</h2>
+<h2>Players (<%= @team.players.count %>)</h2>
 <% if @team.players.any? %>
 	<ul>
 		<% @team.players.each do |player| %>
@@ -20,23 +20,34 @@
 <h2>Add Players to Team</h2>
 <% available_players = Player.where(team_id: nil) %>
 <% if available_players.any? %>
+	<%= form_with url: add_player_team_path(@team), method: :post do |f| %>
+		<%= f.collection_select :player_id, available_players, :id, :name, { prompt: "Select a Player" } %>
+		<%= f.submit "Add to Team" %>
+	<% end %>
+
+<!-- Add back in Ruby squids if deciding to use this again. Else, remove.
 	<ul>
-		<% available_players.each do |player| %>
+		 < available_players.each do |player| %>
 			<li>
-				<%= player.name %>
-				<%= button_to "Add to Team", add_player_team_path(@team, player_id: player.id),
+				<= player.name %>
+				<= button_to "Add to Team", add_player_team_path(@team, player_id: player.id),
 					method: :post,
 					style: "display: inline; margin-left: 10px;" %>
 			</li>
-		<% end %>
+		< end %>
 	</ul>
+-->
+
 <% else %>
 	<p>No available players to add. All players are assigned to teams.</p>
 <% end %>
 
-<h2>Upcoming Games</h2>
-<% upcoming_games = @team.upcoming_games %>
-<% if upcoming_games.any? %>
+<h2>Games</h2>
+
+<%= link_to "Add New Game", new_team_game_path(@team), style: "display: inline-block; padding: 10px 20px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; margin-bottom: 20px;" %>
+
+<h3>Upcoming Games</h3>
+<% if @team.upcoming_games.any? %>
   <table style="width: 100%; border-collapse: collapse;">
     <thead>
       <tr style="background: #f0f0f0;">
@@ -50,41 +61,32 @@
       </tr>
     </thead>
     <tbody>
-      <% upcoming_games.each do |game| %>
+      <% @team.upcoming_games.each do |game| %>
         <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 10px;"><%= game.date.strftime("%b %d, %Y") %></td>
-          <td style="padding: 10px;"><%= game.time.strftime("%I:%M %p") %></td>
-          <td style="padding: 10px;">
-            <% if game.home_team_id == @team.id %>
-              vs <%= game.away_team.name %>
-            <% else %>
-              @ <%= game.home_team.name %>
-            <% end %>
-          </td>
-          <td style="padding: 10px;"><%= game.location %></td>
-          <td style="padding: 10px;">
-            <% if game.home_team_id == @team.id %>
-              <strong>Home</strong>
-            <% else %>
-              Away
-            <% end %>
-          </td>
-          <td style="padding: 10px;">
-            <% team_rsvps = game.rsvps.joins(:player).where(players: { team_id: @team.id }) %>
-            <% if team_rsvps.any? %>
-              ✅ <%= team_rsvps.yes.count %> Yes
-              / ❌ <%= team_rsvps.no.count %> No
-              / ⏳ <%= team_rsvps.pending.count %> Pending
-            <% else %>
-              <em>Not sent</em>
-            <% end %>
-          </td>
-          <td style="padding: 10px;">
-            <%= button_to "Send Roll Call", send_team_roll_call_game_path(game, team_id: @team.id), 
-                method: :post,
-                style: "padding: 5px 10px; background: #4CAF50; color: white; border: none; border-radius: 3px; cursor: pointer;" %>
-            <%= link_to "View Details", game, style: "margin-left: 10px;" %>
-          </td>
+        	<td style="padding: 10px;"><%= game.date.strftime("%b %d, %Y") %></td>
+        	<td style="padding: 10px;"><%= game.time.strftime("%I:%M %p") %></td>
+          	<td style="padding: 10px;"><%= game.opponent %></td>
+          	<td style="padding: 10px;"><%= game.location %></td>
+          	<td style="padding: 10px;">
+            	<%= game.home_away == 'home' ? '🏠 Home' : '✈️ Away' %>
+          	</td>
+          	<td style="padding: 10px;">
+            	<% if game.rsvps.any? %>
+              		✅ <%= game.rsvps.yes.count %>
+              		/ ❌ <%= game.rsvps.no.count %>
+              		/ ⏳ <%= game.rsvps.pending.count %>
+            	<% else %>
+              		<em>Not sent</em>
+            	<% end %>
+          	</td>
+          	<td style="padding: 10px;">
+            	<%= link_to "View", team_game_path(@team, game), style: "margin-right: 10px;" %>
+            	<%= link_to "Edit", edit_team_game_path(@team, game), style: "margin-right: 10px;" %>
+            	<%= button_to "Delete", team_game_path(@team, game), 
+                	method: :delete, 
+                	data: { confirm: "Delete this game?" },
+                	style: "display: inline; padding: 5px 10px; background: #f44336; color: white; border: none; border-radius: 3px;" %>
+          	</td>
         </tr>
       <% end %>
     </tbody>
@@ -93,27 +95,23 @@
   <p>No upcoming games scheduled.</p>
 <% end %>
 
-<h2>Past Games</h2>
-<% past_games = @team.games.where("date < ?", Date.today).order(date: :desc).limit(5) %>
-<% if past_games.any? %>
-  <ul>
-    <% past_games.each do |game| %>
-      <li>
-        <%= game.date.strftime("%b %d, %Y") %> - 
-        <% if game.home_team_id == @team.id %>
-          vs <%= game.away_team.name %> (Home)
-        <% else %>
-          @ <%= game.home_team.name %> (Away)
-        <% end %>
-        - <%= game.location %>
-        <%= link_to "View", game %>
-      </li>
-    <% end %>
-  </ul>
+<h3>Past Games</h3>
+<% if @team.past_games.any? %>
+	<ul>
+		<% @team.past_games.limit(5).each do |game| %>
+			<li>
+				<%= game.date.strftime("%b %d, %Y") %>
+				vs <%= game.opponent %>
+				(<%= game.home_away == 'home' ? 'Home' : 'Away' %>) - 
+				<%= game.location %>
+				<%= link_to "View", team_game_path(@team, game) %>
+			</li>
+		<% end %>
+	</ul>
 <% else %>
-  <p>No past games.</p>
+	<p>No past games.</p>
 <% end %>
 
-<%= link_to "Back", teams_path %>
-<%= link_to "Edit", edit_team_path(@team) %>
-<%= button_to "Delete", @team, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+<%= link_to "Back to Teams", teams_path %>
+<%= link_to "Edit Team", edit_team_path(@team) %>
+<%= button_to "Delete Team", @team, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
