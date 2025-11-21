@@ -3,7 +3,7 @@
 <%= link_to "New Player", new_player_path %>
 
 <div id="players">
-	<%= @players.each do |player| %>
+	<% @players.each do |player| %>
 	<div>
 		<%= link_to player.name, player %>
 		<%= button_to "Send SMS", send_notification_player_path(player), method: :post, class: "btn btn-primary" %>
