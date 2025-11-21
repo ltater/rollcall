@@ -14,7 +14,7 @@ class RsvpsControllerTest < ActionDispatch::IntegrationTest
       time: Time.now,
       location: "Test Stadium",
       opponent: "Rival Team",
-      home_away: 'home'
+      home_away: "home"
     )
     @rsvp = Rsvp.create!(
       game: @game,

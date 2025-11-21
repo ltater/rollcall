@@ -16,7 +16,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
       time: Time.now,
       location: "Test Stadium",
       opponent: "Rival Team",
-      home_away: 'home'
+      home_away: "home"
     )
   end
 
@@ -33,7 +33,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
           time: Time.now,
           location: "Test Location",
           opponent: "Another Team",
-          home_away: 'away'
+          home_away: "away"
         }
       }
     end
